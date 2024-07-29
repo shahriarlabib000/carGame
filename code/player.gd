@@ -21,8 +21,3 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_redo"):
 		get_tree().reload_current_scene()
 		
-	
-
-
-func _on_body_body_entered(body):
-	pass # Replace with function body.
