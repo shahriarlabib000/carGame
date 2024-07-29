@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcld3r5or60r"]
+
+[ext_resource type="Texture2D" uid="uid://b68r5ap5h6k51" path="res://PhysicsCarGameAssets/Images/Characters/Head.png" id="1_j2gps"]
+[ext_resource type="Texture2D" uid="uid://cmwbfrn1q24m4" path="res://PhysicsCarGameAssets/Images/Characters/Body.png" id="2_c47l3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xali7"]
+radius = 22.0907
+
+[node name="body" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 56)
+scale = Vector2(1, 0.485)
+texture = ExtResource("2_c47l3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, -22)
+polygon = PackedVector2Array(-10, 72, 10, 72, 10, 86, -8, 84)
+disabled = true
+
+[node name="playerhead" type="RigidBody2D" parent="." groups=["playerhead"]]
+position = Vector2(-3, 56)
+
+[node name="Sprite2D" type="Sprite2D" parent="playerhead"]
+position = Vector2(-1, -52)
+scale = Vector2(0.5, 0.57)
+texture = ExtResource("1_j2gps")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerhead"]
+position = Vector2(0, -48)
+shape = SubResource("CircleShape2D_xali7")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(-3, 25)
+node_a = NodePath("..")
+node_b = NodePath("../playerhead")
+softness = 5.0
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+position = Vector2(-3, 58)
+node_a = NodePath("..")
+node_b = NodePath("../playerhead")
+softness = 3.0

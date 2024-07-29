@@ -1,0 +1,134 @@
+[gd_scene load_steps=15 format=3 uid="uid://b51pbcg13w8kh"]
+
+[ext_resource type="Script" path="res://code/Terrain.gd" id="1_idpyx"]
+[ext_resource type="Texture2D" uid="uid://bw3cvarns3j8o" path="res://PhysicsCarGameAssets/Images/paddle/paddle_unpressed.png" id="2_813xk"]
+[ext_resource type="PackedScene" uid="uid://dodckuiq8ijjh" path="res://scenes/longCar.tscn" id="2_yvdhn"]
+[ext_resource type="Texture2D" uid="uid://gw1cnmx5y3o7" path="res://PhysicsCarGameAssets/Images/paddle/paddle_pressed.png" id="3_p3esd"]
+[ext_resource type="Texture2D" uid="uid://dtc8nvfejhheu" path="res://backgrounds/starBG.png" id="5_ssioj"]
+[ext_resource type="Texture2D" uid="uid://do8egcq063p0x" path="res://PhysicsCarGameAssets/Images/paddle/reset2.png" id="5_yrrkn"]
+[ext_resource type="Texture2D" uid="uid://db3xga12u0wtl" path="res://PhysicsCarGameAssets/Images/paddle/reset.png" id="6_7t0rf"]
+[ext_resource type="Texture2D" uid="uid://d0bmghsghyrxx" path="res://backgrounds/moon.png" id="6_tedws"]
+[ext_resource type="Texture2D" uid="uid://dhohw32u38fby" path="res://backgrounds/parallax-forest-middle-trees.png" id="7_apf4i"]
+[ext_resource type="Texture2D" uid="uid://6hrkp8oqftlm" path="res://backgrounds/parallax-forest-front-trees.png" id="8_r0kdy"]
+[ext_resource type="PackedScene" uid="uid://3cy3kajfbqhf" path="res://scenes/ramp.tscn" id="9_f37fx"]
+[ext_resource type="AudioStream" uid="uid://bdsic8hory7ys" path="res://PhysicsCarGameAssets/Audio/Coin.wav" id="10_0i5wg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dn63m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ryit"]
+size = Vector2(969, 4138)
+
+[node name="lvl1" type="Node2D"]
+texture_repeat = 2
+script = ExtResource("1_idpyx")
+
+[node name="player" parent="." instance=ExtResource("2_yvdhn")]
+position = Vector2(1000, 600)
+
+[node name="Sprite2D" parent="player/GrooveJoint2D/body" index="0"]
+visible = false
+
+[node name="playerhead" parent="player/GrooveJoint2D/body" index="2" groups=["plaayerhead"]]
+
+[node name="headArea" type="Area2D" parent="player/GrooveJoint2D/body/playerhead" index="2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/GrooveJoint2D/body/playerhead/headArea"]
+position = Vector2(0, -50)
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_dn63m")
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position = Vector2(-4, 206)
+offset = Vector2(600, 0)
+position_smoothing_enabled = true
+drag_left_margin = 0.6
+drag_top_margin = 1.0
+drag_right_margin = 0.4
+drag_bottom_margin = 1.0
+editor_draw_drag_margin = true
+
+[node name="staticWall" type="StaticBody2D" parent="."]
+
+[node name="leftwall" type="CollisionShape2D" parent="staticWall"]
+position = Vector2(-621, 1624)
+shape = SubResource("RectangleShape2D_0ryit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="left" type="TouchScreenButton" parent="CanvasLayer/Control"]
+position = Vector2(51.5001, 589)
+scale = Vector2(1.54032, 1.43548)
+texture_normal = ExtResource("2_813xk")
+texture_pressed = ExtResource("3_p3esd")
+action = "ui_left"
+
+[node name="right" type="TouchScreenButton" parent="CanvasLayer/Control"]
+position = Vector2(1359.5, 581.5)
+scale = Vector2(1.61694, 1.65726)
+texture_normal = ExtResource("2_813xk")
+texture_pressed = ExtResource("3_p3esd")
+action = "ui_right"
+
+[node name="reset" type="TouchScreenButton" parent="CanvasLayer/Control"]
+texture_normal = ExtResource("5_yrrkn")
+texture_pressed = ExtResource("6_7t0rf")
+action = "ui_redo"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.001, 0)
+motion_mirroring = Vector2(3000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1748, 897)
+scale = Vector2(1.18267, 1)
+texture = ExtResource("5_ssioj")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.001, 0.001)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(2735, 235)
+scale = Vector2(3.23035, 2.67812)
+texture = ExtResource("6_tedws")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(2000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(1585.5, 635.71)
+scale = Vector2(11.6507, 7.64112)
+texture = ExtResource("7_apf4i")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(2100, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(1593.5, 625.71)
+scale = Vector2(11.7757, 7.51612)
+texture = ExtResource("8_r0kdy")
+
+[node name="ramp" parent="." instance=ExtResource("9_f37fx")]
+position = Vector2(3934, 140)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_0i5wg")
+
+[node name="terrainColi" type="StaticBody2D" parent="." groups=["terrain"]]
+z_index = 1
+
+[connection signal="body_entered" from="player/GrooveJoint2D/body/playerhead/headArea" to="." method="_on_head_area_body_entered"]
+
+[editable path="player"]
+[editable path="player/GrooveJoint2D/body"]

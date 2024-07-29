@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjk8hx03onlts"]
+
+[ext_resource type="Texture2D" uid="uid://4pk0ff17ltfw" path="res://objects/bridge.png" id="1_imcfy"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1500, 0)
+texture = ExtResource("1_imcfy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1500, 0)
+polygon = PackedVector2Array(-892, 139, 60, -404, -14, -518, -933, 2, -1504, 13, -1503, 154)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2(1500, 0)
+polygon = PackedVector2Array(1501, 1, 1496, 142, 217, 134, 218, -3)

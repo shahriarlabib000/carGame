@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://dodckuiq8ijjh"]
+
+[ext_resource type="Script" path="res://code/player.gd" id="1_7f36s"]
+[ext_resource type="PackedScene" uid="uid://bcld3r5or60r" path="res://scenes/character.tscn" id="2_t1r21"]
+[ext_resource type="PackedScene" uid="uid://beryo2gyqqdy" path="res://scenes/wheel.tscn" id="3_6owsw"]
+[ext_resource type="Texture2D" uid="uid://p0mv46ib3eao" path="res://PhysicsCarGameAssets/Images/Car/longRedCar.png" id="4_wtgqg"]
+
+[node name="player" type="RigidBody2D" groups=["player"]]
+gravity_scale = 5.0
+script = ExtResource("1_7f36s")
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
+position = Vector2(4, -20)
+rotation = 1.5708
+node_a = NodePath("..")
+node_b = NodePath("body")
+length = 20.0
+initial_offset = 1.0
+
+[node name="body" parent="GrooveJoint2D" instance=ExtResource("2_t1r21")]
+position = Vector2(-59, 2.99998)
+rotation = -1.5708
+
+[node name="GrooveJoint2D2" type="GrooveJoint2D" parent="."]
+position = Vector2(-87, -20)
+rotation = 1.5708
+node_a = NodePath("..")
+node_b = NodePath("body")
+length = 20.0
+initial_offset = 1.0
+
+[node name="body" parent="GrooveJoint2D2" instance=ExtResource("2_t1r21")]
+position = Vector2(-60, -1.52588e-05)
+rotation = -1.5708
+
+[node name="wheelJoint" type="PinJoint2D" parent="."]
+position = Vector2(-188, 89)
+node_a = NodePath("..")
+node_b = NodePath("wheel")
+softness = 1.5
+
+[node name="wheel" parent="wheelJoint" instance=ExtResource("3_6owsw")]
+gravity_scale = 5.0
+
+[node name="wheelJoint2" type="PinJoint2D" parent="."]
+position = Vector2(148, 89)
+node_a = NodePath("..")
+node_b = NodePath("wheel")
+softness = 1.5
+
+[node name="wheel" parent="wheelJoint2" instance=ExtResource("3_6owsw")]
+gravity_scale = 5.0
+
+[node name="car" type="Sprite2D" parent="."]
+texture = ExtResource("4_wtgqg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, -5)
+polygon = PackedVector2Array(251, 82, 249, -2, 61, -55, 46, -17, -110, -4, -179, -51, -230, -50, -234, 54, -182, 26, -117, 89, -32, 91, 40, 78, 91, 77, 135, 23, 202, 42, 212, 81)

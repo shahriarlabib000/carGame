@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1hr305l3o2bb"]
+
+[ext_resource type="Script" path="res://code/player.gd" id="1_c77yr"]
+[ext_resource type="PackedScene" uid="uid://beryo2gyqqdy" path="res://scenes/wheel.tscn" id="1_pnk0y"]
+[ext_resource type="Texture2D" uid="uid://bwjgtpifevls7" path="res://PhysicsCarGameAssets/Images/Car/RedCar.png" id="1_w80g1"]
+[ext_resource type="PackedScene" uid="uid://bcld3r5or60r" path="res://scenes/character.tscn" id="2_abk2v"]
+
+[node name="player" type="RigidBody2D" groups=["player"]]
+gravity_scale = 5.0
+script = ExtResource("1_c77yr")
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
+position = Vector2(-50, 0)
+node_a = NodePath("..")
+node_b = NodePath("body")
+
+[node name="body" parent="GrooveJoint2D" instance=ExtResource("2_abk2v")]
+position = Vector2(-1, -89)
+scale = Vector2(0.7, 0.7)
+
+[node name="wheelJoint" type="PinJoint2D" parent="."]
+position = Vector2(-150, 80)
+node_a = NodePath("..")
+node_b = NodePath("wheel")
+softness = 1.5
+
+[node name="wheel" parent="wheelJoint" instance=ExtResource("1_pnk0y")]
+gravity_scale = 5.0
+
+[node name="wheelJoint2" type="PinJoint2D" parent="."]
+position = Vector2(110, 80)
+node_a = NodePath("..")
+node_b = NodePath("wheel")
+softness = 1.5
+
+[node name="wheel" parent="wheelJoint2" instance=ExtResource("1_pnk0y")]
+gravity_scale = 5.0
+
+[node name="car" type="Sprite2D" parent="."]
+texture = ExtResource("1_w80g1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, -5)
+polygon = PackedVector2Array(-209, 78, -210, -21, -190, -46, -130, -48, -98, -20, -55, -12, -15, -21, 18, -44, 96, -36, 189, -9, 205, 27, 204, 75, 172, 79, 134, 39, 90, 42, 57, 75, 8, 87, -94, 81, -122, 40, -181, 39)
